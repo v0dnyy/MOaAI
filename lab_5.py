@@ -112,6 +112,7 @@ def main():
     task_3_4(img)
     task_5(img)
     task_6_7(img)
+    #Готово
 
 
 
