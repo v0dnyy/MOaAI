@@ -62,7 +62,7 @@ def task_3_4(img):
 
 def task_5(img):
     e = [5, 10, 20, 40]
-    fig, axs = plt.subplots(2, 2)
+    fig, axs = plt.subplots(2, 2, figsize=(15, 15))
     axs = axs.flatten()
     for i in range(len(e)):
         q = MyDifCode(img, e[i], 1)[0]
