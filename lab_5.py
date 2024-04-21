@@ -31,7 +31,6 @@ def MyDifCode(x, e, r):
             f[m][n] = x[m][n] - p
             q[m][n] = np.sign(f[m][n]) * ((abs(f[m][n]) + e) // (2 * e + 1))
             y[m][n] = p + q[m][n] * (2 * e + 1)
-            assert np.max(x[m][n] - y[m][n]) <= e, "Погрешность недопустима"
     return q, f
 
 
@@ -51,9 +50,9 @@ def calc_entropy(x):
 
 
 def task_3_4(img):
-    y_1 = [calc_entropy(MyDifCode(img, e, 1)[0]) for e in range(0, 50, 5)]
-    y_2 = [calc_entropy(MyDifCode(img, e, 2)[0]) for e in range(0, 50, 5)]
-    x = np.linspace(0, 51, 10)
+    y_1 = [calc_entropy(MyDifCode(img, e, 1)[0]) for e in range(0, 50, 1)]
+    y_2 = [calc_entropy(MyDifCode(img, e, 2)[0]) for e in range(0, 50, 1)]
+    x = np.linspace(0, 51)
     plt.plot(x, y_1, c='r', label="предсказатель №1")
     plt.plot(x, y_2, c='g', label="предсказатель №2")
     plt.legend()
@@ -67,6 +66,11 @@ def task_5(img):
     for i in range(len(e)):
         q = MyDifCode(img, e[i], 1)[0]
         y = MyDifDeCode(q, e[i], 1)
+        max_deviation = np.max(np.abs(y - img))
+        if max_deviation <= e[i]:
+            print(f"Контроль максимальной ошибки выполняется. Макс. отклонение = {max_deviation}")
+        else:
+            print(f"Контроль максимальной ошибки не выполняется. Макс. отклонение = {max_deviation}")
         axs[i].imshow(y, cmap="gray", vmin=0, vmax=255)
         axs[i].set_title(f"Восстановление e={e[i]}")
     plt.show()
@@ -107,9 +111,11 @@ def task_6_7(img):
 
 def main():
     # path = '09_lena2.tif'
-    path = '01_apc.tif'
+    # path = '01_apc.tif'
+    path = '11_peppers2.tif'
     img = read_img(path)
-    task_3_4(img)
+
+    #task_3_4(img)
     task_5(img)
     task_6_7(img)
     #Готово
